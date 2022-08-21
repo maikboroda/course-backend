@@ -10,4 +10,8 @@ class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user
+        return self.user.first_name
+
+    @property
+    def total_price(self):
+        return sum([i.price for i in self.product.all()])  # sum of all product in cart
